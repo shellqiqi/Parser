@@ -8,7 +8,7 @@ import java.util.Stack;
 
 public class Parser {
     private LinkedList<Token> inputs = new LinkedList<Token>();
-    private Stack<Token> symbols = new Stack<Token>();
+    private SyntaxTree symbols = new SyntaxTree();
     private Stack<Integer> state = new Stack<Integer>();
 
     public Parser(Lexer lexer) throws Exception {
@@ -20,7 +20,7 @@ public class Parser {
     }
 
     private void next() {
-        symbols.push(inputs.getFirst());
+        symbols.pushToken(inputs.getFirst());
         inputs.removeFirst();
     }
 
@@ -31,22 +31,26 @@ public class Parser {
 
     private void reduce(int i) throws Exception {
         switch (i) {
-            case 1:
-                printReduced(3);
-                symbols.push(new Token("S", "if B S"));
-                break;
-            case 2:
-                printReduced(5);
-                symbols.push(new Token("S", "if B S else S"));
-                break;
-            case 3:
-                printReduced(3);
-                symbols.push(new Token("B", "( id )"));
-                break;
-            case 4:
-                printReduced(2);
-                symbols.push(new Token("S", "id ;"));
-                break;
+            case 1: {
+                TokenNode tokenNode = new TokenNode(new Token("S", "if B S"));
+                SyntaxTreeNode syntaxTreeNode = reducedToSyntaxTreeNode(3, tokenNode);
+                tokenNode.setChild(syntaxTreeNode);
+                symbols.push(tokenNode); break; }
+            case 2: {
+                TokenNode tokenNode = new TokenNode(new Token("S", "if B S else S"));
+                SyntaxTreeNode syntaxTreeNode = reducedToSyntaxTreeNode(5, tokenNode);
+                tokenNode.setChild(syntaxTreeNode);
+                symbols.push(tokenNode); break; }
+            case 3: {
+                TokenNode tokenNode = new TokenNode(new Token("B", "( id )"));
+                SyntaxTreeNode syntaxTreeNode = reducedToSyntaxTreeNode(3, tokenNode);
+                tokenNode.setChild(syntaxTreeNode);
+                symbols.push(tokenNode); break; }
+            case 4: {
+                TokenNode tokenNode = new TokenNode(new Token("S", "id ;"));
+                SyntaxTreeNode syntaxTreeNode = reducedToSyntaxTreeNode(2, tokenNode);
+                tokenNode.setChild(syntaxTreeNode);
+                symbols.push(tokenNode); break; }
             default: throw new Exception("reduce" + i + " not defined");
         }
     }
@@ -55,23 +59,14 @@ public class Parser {
         state.push(i);
     }
 
-    private void printReduced(int popCount) {
-        LinkedList<Token> reduced = new LinkedList<Token>();
+    private SyntaxTreeNode reducedToSyntaxTreeNode(int popCount, TokenNode parent) {
+        SyntaxTreeNode syntaxTreeNode = new SyntaxTreeNode(parent);
         for (int i = 0; i < popCount; i++) {
-            reduced.addFirst(symbols.peek());
+            syntaxTreeNode.tokenNodes.addFirst(symbols.peek());
             state.pop();
             symbols.pop();
         }
-        for (Token token:
-             reduced) {
-            System.out.print(token.getTag() + " ");
-        }
-        System.out.print("<=> ");
-        for (Token token:
-             reduced) {
-            System.out.print(token.getValue() + " ");
-        }
-        System.out.print("\n");
+        return syntaxTreeNode;
     }
 
     private boolean isAction(String s) {
@@ -79,10 +74,10 @@ public class Parser {
     }
 
     private boolean isGoto(String s) {
-        return !symbols.empty() && symbols.peek().getTag().equals(s);
+        return !symbols.empty() && symbols.peekToken().getTag().equals(s);
     }
 
-    public void printTree() throws Exception {
+    public void getSyntaxTree() throws Exception {
         state.push(0);
 
         while (true) {

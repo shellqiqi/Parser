@@ -7,8 +7,6 @@ import shell7.lexer.Lexer;
 import java.io.BufferedReader;
 import java.io.FileReader;
 
-import static org.junit.Assert.*;
-
 public class ParserTest {
 
     Parser parser;
@@ -20,6 +18,6 @@ public class ParserTest {
 
     @Test
     public void printTree() throws Exception {
-        parser.printTree();
+        parser.getSyntaxTree();
     }
 }

@@ -6,15 +6,23 @@ public class SyntaxTree {
 
     private SyntaxTreeNode root = new SyntaxTreeNode(null);
 
-    public void push(Token token) {
-        root.tokenNodes.push(new TokenNode(token, null));
+    public void push(TokenNode tokenNode) {
+        root.tokenNodes.push(tokenNode);
+    }
+
+    public void pushToken(Token token) {
+        root.tokenNodes.push(new TokenNode(token));
     }
 
     public void pop() {
         root.tokenNodes.pop();
     }
 
-    public Token peek() {
+    public TokenNode peek() {
+        return root.tokenNodes.peek();
+    }
+
+    public Token peekToken() {
         return root.tokenNodes.peek().getToken();
     }
 

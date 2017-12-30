@@ -1,7 +1,6 @@
 package shell7;
 
 import shell7.lexer.Lexer;
-import shell7.lexer.Token;
 import shell7.parser.Parser;
 
 import java.io.BufferedReader;
@@ -11,7 +10,7 @@ public class App {
     public static void main(String[] args) {
         try {
             Parser parser = new Parser(new Lexer(new BufferedReader(new FileReader("./resource/test.txt"))));
-            parser.printTree();
+            parser.getSyntaxTree();
         } catch (Exception e) {
             e.printStackTrace();
         }

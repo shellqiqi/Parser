@@ -4,15 +4,19 @@ import java.util.LinkedList;
 
 public class SyntaxTreeNode {
 
-    private SyntaxTreeNode parent;
+    private TokenNode parent;
     public LinkedList<TokenNode> tokenNodes;
 
-    public SyntaxTreeNode(SyntaxTreeNode parent) {
+    public SyntaxTreeNode(TokenNode parent) {
         this.parent = parent;
         this.tokenNodes = new LinkedList<TokenNode>();
     }
 
-    public SyntaxTreeNode getParent() {
+    public TokenNode getParent() {
         return parent;
+    }
+
+    public void setParent(TokenNode parent) {
+        this.parent = parent;
     }
 }

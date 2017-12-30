@@ -6,9 +6,9 @@ public class TokenNode {
     private Token token;
     private SyntaxTreeNode child;
 
-    public TokenNode(Token token, SyntaxTreeNode child) {
+    public TokenNode(Token token) {
         this.token = token;
-        this.child = child;
+        this.child = null;
     }
 
     public Token getToken() {
