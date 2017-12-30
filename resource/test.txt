@@ -1,0 +1,8 @@
+if (i)
+    if (j)
+        a;
+    else
+        b;
+else
+    if (k)
+        d;
