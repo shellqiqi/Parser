@@ -7,6 +7,7 @@ import java.util.LinkedList;
 import java.util.Stack;
 
 public class Parser {
+
     private LinkedList<Token> inputs = new LinkedList<Token>();
     private SyntaxTree symbols = new SyntaxTree();
     private Stack<Integer> state = new Stack<Integer>();
@@ -17,6 +18,11 @@ public class Parser {
             inputs.addLast(t);
         }
         inputs.addLast(new Token("$", "$"));
+        generateSyntaxTree();
+    }
+
+    public SyntaxTree getSyntaxTree() {
+        return symbols;
     }
 
     private void next() {
@@ -30,29 +36,27 @@ public class Parser {
     }
 
     private void reduce(int i) throws Exception {
+        TokenNode tokenNode;
         switch (i) {
-            case 1: {
-                TokenNode tokenNode = new TokenNode(new Token("S", "if B S"));
-                SyntaxTreeNode syntaxTreeNode = reducedToSyntaxTreeNode(3, tokenNode);
-                tokenNode.setChild(syntaxTreeNode);
-                symbols.push(tokenNode); break; }
-            case 2: {
-                TokenNode tokenNode = new TokenNode(new Token("S", "if B S else S"));
-                SyntaxTreeNode syntaxTreeNode = reducedToSyntaxTreeNode(5, tokenNode);
-                tokenNode.setChild(syntaxTreeNode);
-                symbols.push(tokenNode); break; }
-            case 3: {
-                TokenNode tokenNode = new TokenNode(new Token("B", "( id )"));
-                SyntaxTreeNode syntaxTreeNode = reducedToSyntaxTreeNode(3, tokenNode);
-                tokenNode.setChild(syntaxTreeNode);
-                symbols.push(tokenNode); break; }
-            case 4: {
-                TokenNode tokenNode = new TokenNode(new Token("S", "id ;"));
-                SyntaxTreeNode syntaxTreeNode = reducedToSyntaxTreeNode(2, tokenNode);
-                tokenNode.setChild(syntaxTreeNode);
-                symbols.push(tokenNode); break; }
-            default: throw new Exception("reduce" + i + " not defined");
+            case 1:
+                tokenNode = new TokenNode(new Token("S", "if B S"));
+                tokenNode.setChild(reducedToSyntaxTreeNode(3, tokenNode));
+                break;
+            case 2:
+                tokenNode = new TokenNode(new Token("S", "if B S else S"));
+                tokenNode.setChild(reducedToSyntaxTreeNode(5, tokenNode));
+                break;
+            case 3:
+                tokenNode = new TokenNode(new Token("B", "( id )"));
+                tokenNode.setChild(reducedToSyntaxTreeNode(3, tokenNode));
+                break;
+            case 4:
+                tokenNode = new TokenNode(new Token("S", "id ;"));
+                tokenNode.setChild(reducedToSyntaxTreeNode(2, tokenNode));
+                break;
+            default: throw new Exception("Reduction" + i + " not defined");
         }
+        symbols.push(tokenNode);
     }
 
     private void go(int i) {
@@ -77,9 +81,8 @@ public class Parser {
         return !symbols.empty() && symbols.peekToken().getTag().equals(s);
     }
 
-    public void getSyntaxTree() throws Exception {
-        state.push(0);
-
+    private void generateSyntaxTree() throws Exception {
+        state.push(0); // Init state
         while (true) {
             switch (state.peek()) {
                 case 0:

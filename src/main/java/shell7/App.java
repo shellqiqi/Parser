@@ -10,7 +10,7 @@ public class App {
     public static void main(String[] args) {
         try {
             Parser parser = new Parser(new Lexer(new BufferedReader(new FileReader("./resource/test.txt"))));
-            parser.getSyntaxTree();
+            parser.getSyntaxTree().print();
         } catch (Exception e) {
             e.printStackTrace();
         }

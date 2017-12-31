@@ -1,6 +1,7 @@
 package shell7.parser;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import shell7.lexer.Lexer;
 
@@ -9,7 +10,7 @@ import java.io.FileReader;
 
 public class ParserTest {
 
-    Parser parser;
+    private Parser parser;
 
     @Before
     public void setUp() throws Exception {
@@ -17,7 +18,8 @@ public class ParserTest {
     }
 
     @Test
-    public void printTree() throws Exception {
+    @Ignore
+    public void getSyntaxTree() {
         parser.getSyntaxTree();
     }
 }

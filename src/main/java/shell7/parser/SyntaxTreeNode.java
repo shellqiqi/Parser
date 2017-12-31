@@ -12,6 +12,10 @@ public class SyntaxTreeNode {
         this.tokenNodes = new LinkedList<TokenNode>();
     }
 
+    public boolean hasParent() {
+        return !(parent == null);
+    }
+
     public TokenNode getParent() {
         return parent;
     }

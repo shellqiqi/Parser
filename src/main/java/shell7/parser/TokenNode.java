@@ -3,12 +3,17 @@ package shell7.parser;
 import shell7.lexer.Token;
 
 public class TokenNode {
+
     private Token token;
     private SyntaxTreeNode child;
 
     public TokenNode(Token token) {
         this.token = token;
         this.child = null;
+    }
+
+    public boolean hasChild() {
+        return !(child == null);
     }
 
     public Token getToken() {
