@@ -27,7 +27,7 @@ else
 
 ## LR(1) 项集
 
-![]()
+![LR1](assets/LR1.png)
 
 ## LR(1) 分析表
 
@@ -63,7 +63,7 @@ else
 
 ### 语法分析树数据结构
 
-![]()
+![SyntaxTree](assets/SyntaxTree.png)
 
 ### 程序源码
 
