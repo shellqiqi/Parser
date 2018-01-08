@@ -1,0 +1,47 @@
+\section{词法语法描述}
+\subsection{C11规范}
+C11规范来自于cppreference\footnote{http://en.cppreference.com} 中所列举的C语言结构描述。Mini-C从中选取了常用的关键字来构成 C 语言的子集，包括数字、常用的数据类型、条件控制语句、\verb|For|循环、和常见的运算操作符与函数调用。为了表示的简洁性，本次实验只保留条件控制语句。本次报告的示例程序如下所示。
+{\linespread{1}
+\begin{lstlisting}[caption=本次实验的实验用例]
+if (i)
+    if (j)
+        a;
+    else
+        b;
+else
+    if (k)
+        d;
+\end{lstlisting}}
+\subsection{Mini-C正规式描述}
+参照C11规范，我们得到Mini-C的词法正规式。
+{\linespread{1}
+\begin{lstlisting}[caption=Mini-C的词法正规式]
+delim       [ \t\n]
+ws          {delim}+
+digit       [0-9]
+digits      {digit}+
+number      {digits}(\.{digits})?([Ee][+-]?{digits})?
+symbol      "("|")"|"{"|"}"|";"|"["|"]"|","
+letter_     [A-Za-z\_]
+id          {letter_}({letter_}|{digit})*
+str         \"[^\"]*\"
+comparison  "<"|">"|"<="|">="|"=="|"!="
+operator    "+"|"-"|"*"|"/"|"="|"++"|"--"|"<<"|">>"|"||"|"&&"
+\end{lstlisting}}
+有一些简单的正则表达式模式，比如~\verb|if|。如果我们在输入中看到两个字母~\verb|if|，并且~\verb|if|之后没有跟随其他字母和数字，就会返回词法单元~\verb|IF|。这样的保留字我们用一个保留字表来维持，在获得词素之后参照保留字来判断词法单元是什么。其他关键字处理方式与之类似。
+{\linespread{1}
+\begin{lstlisting}[caption=Mini-C的关键字]
+if else for void char int return
+\end{lstlisting}}
+\subsection{BNF范式}
+下面给出Mini-C的BNF范式
+\begin{align*}
+    \text{S } & \rightarrow \text{ if B S}\\
+    \text{S } & \rightarrow \text{ if B S else S}\\
+    \text{S } & \rightarrow \text{ id ;}\\
+    \text{B } & \rightarrow \text{ ( id )}
+\end{align*}
+\subsection{LR(1)项集}
+详见第\pageref{fig:LR1}~页附录\ref{sec:LR1}~图\ref{fig:LR1}。
+\subsection{LR(1)分析表}
+详见第\pageref{fig:LR1table}~页附录\ref{sec:LR1table}~表\ref{fig:LR1table}。

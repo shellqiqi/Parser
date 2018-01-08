@@ -1,0 +1,55 @@
+\documentclass[12pt, a4paper]{article}
+
+\usepackage{xeCJK}
+\usepackage{fontspec}
+\usepackage{indentfirst}
+\usepackage{booktabs}
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{multirow}
+\usepackage[margin=1.25in]{geometry}
+
+\pagestyle{fancy}
+\setmainfont{思源宋体 CN}
+\setmonofont{Inziu Iosevka SC}
+\setCJKmainfont{思源宋体 CN}
+\setCJKmonofont{Inziu Iosevka SC}
+\linespread{1.5}
+
+\lstset{
+    basicstyle=\footnotesize\ttfamily,
+    keywordstyle=\bfseries,
+    numbers=left,
+    frame=single,
+    columns=fixed,
+    showspaces=false,
+    showstringspaces=false,
+    language=java,
+    breaklines=true
+}
+
+\renewcommand\contentsname{目录}
+
+\begin{document}
+
+\include{title} % 标题页
+
+\tableofcontents
+\newpage
+
+\input{section/section1}
+\input{section/section2}
+\input{section/section3}
+% \include{section/section4}
+
+\appendix
+\include{appendix/appendixA}
+\include{appendix/appendixB}
+
+\end{document}

@@ -1,0 +1,32 @@
+\section{LR(1)分析表}\label{sec:LR1table}
+\begin{table}[!h]
+    \centering
+    \begin{tabular}{c | c c c c c c c | c c}
+        \toprule
+        \multirow{2}{*}{status} & \multicolumn{7}{| c |}{ACTION} & \multicolumn{2}{c}{GOTO}\\
+        \cline{2-10}
+        & if & id & ( & ) & ; & \$ & else & S & B\\
+        \hline
+        0  & s2 & s3  &    &     &     &     &     & 1  &   \\
+        1  &    &     &    &     &     & acc &     &    &   \\
+        2  &    &     & s5 &     &     &     &     &    & 4 \\
+        3  &    &     &    &     & s6  &     &     &    &   \\
+        4  & s8 & s9  &    &     &     &     &     & 7  &   \\
+        5  &    & s10 &    &     &     &     &     &    &   \\
+        6  &    &     &    &     &     & r4  &     &    &   \\
+        7  &    &     &    &     &     & r1  & s11 &    &   \\
+        8  &    &     & s5 &     &     &     &     &    & 12\\
+        9  &    &     &    &     & s13 &     &     &    &   \\
+        10 &    &     &    & s14 &     &     &     &    &   \\
+        11 & s2 & s3  &    &     &     &     &     & 15 &   \\
+        12 & s8 & s9  &    &     &     &     &     & 16 &   \\
+        13 &    &     &    &     &     & r4  & r4  &    &   \\
+        14 & r3 & r3  &    &     &     &     &     &    &   \\
+        15 &    &     &    &     &     & r2  &     &    &   \\
+        16 &    &     &    &     &     & r1  & s17 &    &   \\
+        17 & s8 & s9  &    &     &     &     &     & 18 &   \\
+        18 &    &     &    &     &     & r2  & r2  &    &   \\
+        \bottomrule
+    \end{tabular}
+    \caption{LR(1)分析表}\label{fig:LR1table}
+\end{table}
